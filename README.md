@@ -55,7 +55,7 @@ graph TD
 1. **Frontend (`/frontend`)**: Được viết bằng **React 18, Vite, Zustand, Tailwind CSS**. Sử dụng `reconnecting-websocket` để duy trì kết nối ổn định.
 2. **Backend (`/backend`)**: Viết bằng **Python FastAPI**. Tích hợp **SQLAlchemy & AsyncPG** cho tốc độ truy xuất database cực nhanh. Quản lý việc thực thi `claude-code` (CLI runner của Agent).
 3. **Database (`postgres`)**: Dùng hình ảnh `pgvector/pgvector:pg16` để hỗ trợ lưu trữ Vector Embeddings, phục vụ tính năng trí nhớ của Agent.
-4. **Proxy & Router**: Định tuyến các truy vấn API ra ngoài (Anthropic API) thông qua proxy nội bộ nhằm đảm bảo an mật và vượt rào cản mạng.
+4. **Proxy & Router**: Sử dụng **9router** để có thể sử dụng nhiều Model để không phụ thuộc vào API của Anthropic và thay đổi Model dễ dàng.
 
 ---
 
@@ -97,7 +97,7 @@ docker-compose ps
 - Sau khi gửi, trạng thái sẽ chuyển thành `RUNNING`. Bạn sẽ thấy AI bắt đầu dùng các Tool (như `bash`, `str_replace`, `write_file`...) để tự động gõ code. Bạn không cần can thiệp trừ khi AI hỏi (Ask User).
 
 ### 3. Cài đặt Plugin (Góc cho Developer)
-Nếu bạn muốn dạy Claude các kỹ năng mới cho dự án hiện tại:
+Nếu bạn muốn dạy Masuzu các kỹ năng mới cho dự án hiện tại:
 1. Bạn có thể Upload một file `.zip` hoặc folder plugin trực tiếp qua giao diện.
 2. Hoặc chép thư mục plugin vào `d:\Masuzu\plugins\`. Cấu trúc thư mục tối thiểu của plugin:
 ```text
