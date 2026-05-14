@@ -1,0 +1,68 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: claude_agent
+      POSTGRES_USER: agent
+      POSTGRES_PASSWORD: agent_secret
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agent -d claude_agent"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  proxy:
+    build: ./proxy
+    ports:
+      - "8082:8082"
+    env_file: ./proxy/.env
+    volumes:
+      - ./proxy/.env:/app/.env
+
+  backend:
+    build: ./backend
+    ports:
+      - "8001:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      proxy:
+        condition: service_started
+    environment:
+      DATABASE_URL: postgresql+asyncpg://agent:agent_secret@postgres:5432/claude_agent
+      ANTHROPIC_BASE_URL: http://proxy:8082
+      ANTHROPIC_AUTH_TOKEN: freecc
+      WORKSPACES_DIR: /app/workspaces
+      BUILTIN_PLUGINS_DIR: /app/builtin-plugins
+      IMPORTED_PLUGINS_DIR: /app/plugins
+    volumes:
+      - ./workspaces:/app/workspaces
+      - ./plugins:/app/plugins
+      - ./claude-code/plugins:/app/builtin-plugins:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      VITE_API_URL: http://localhost:8001
+      VITE_WS_URL: ws://localhost:8001
+
+  router:
+    build: ./router
+    ports:
+      - "20128:20128"
+    volumes:
+      - ./router/data:/root/.9router
+    stdin_open: true
+    tty: true
+
+volumes:
+  pgdata:

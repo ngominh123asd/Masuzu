@@ -1,0 +1,76 @@
+/* ========================================
+   CLAUDE AGENT — CRT BRUTALIST DESIGN SYSTEM
+   Carried over from the slides project.
+   ======================================== */
+
+:root {
+  --crt: #0B0B0B;
+  --crt-2: #131312;
+  --crt-3: #1a1a18;
+  --phos: #ECECEA;
+  --phos-soft: #9F9F9C;
+  --phos-mute: #6A6A67;
+  --rule: #2A2A27;
+  --rule-strong: #3A3A36;
+  --hazard: #E61919;
+  --hazard-soft: rgba(230,25,25,0.12);
+  --hazard-glow: rgba(230,25,25,0.3);
+  --green: #4AF626;
+  --green-soft: rgba(74,246,38,0.12);
+  --amber: #E0A819;
+  --blue: #4A9CF6;
+  --display: 'Archivo Black', 'Inter', sans-serif;
+  --mono: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+svg { display: block; vertical-align: middle; }
+html, body { margin: 0; padding: 0; height: 100%; }
+
+body {
+  background: var(--crt);
+  color: var(--phos);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "tnum";
+  overflow: hidden;
+}
+
+#root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Fixed CRT scanlines overlay */
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+  background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(0,0,0,0.12) 2px 3px);
+  mix-blend-mode: multiply;
+  opacity: 0.45;
+}
+
+/* Phosphor vignette */
+body::after {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9998;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.4) 100%);
+}
+
+/* ── Animations ── */
+@keyframes blink { 50% { opacity: 0.25; } }
+@keyframes pulse { 50% { opacity: 0.3; box-shadow: 0 0 0 rgba(74,246,38,0); } }
+@keyframes glow { 0%,100% { box-shadow: 0 0 4px var(--hazard-glow); } 50% { box-shadow: 0 0 16px var(--hazard-glow); } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes scanEntry { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes typewriter { from { width: 0; } to { width: 100%; } }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--crt); }
+::-webkit-scrollbar-thumb { background: var(--rule-strong); border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: var(--phos-mute); }
+
+/* ── Selection ── */
+::selection { background: var(--hazard); color: var(--crt); }

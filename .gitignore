@@ -1,0 +1,47 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environments
+.env
+.env.local
+.env.*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+ENV/
+.pytest_cache/
+
+# Node/React
+node_modules/
+dist/
+build/
+.eslintcache
+
+# Docker
+.docker/
+# Exclude database data
+pgdata/
+
+# Project specific
+workspaces/
+plugins/imported/
+logs/
+*.log
+router/data/
+backend/db/*.sqlite
+backend/db/*.db
+
+# Sub-project specific ignores
+claude-code/.claude/
+claude-code/plugins/
+proxy/.venv/
+proxy/__pycache__/
+proxy/server.log
+proxy/.env
+frontend/.env

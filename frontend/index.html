@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  // Chặn lỗi runtime từ các Chrome extension chạy trước khi React kịp render
+  const originalConsoleError = console.error;
+  console.error = function() {
+    if (arguments[0] && typeof arguments[0] === 'string' && arguments[0].includes('Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.')) {
+      return;
+    }
+    originalConsoleError.apply(console, arguments);
+  };
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MASUZU // CONTROL TERMINAL</title>
+<meta name="description" content="Masuzu CLI Agent Platform — Agentic coding with modular MCP architecture">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>

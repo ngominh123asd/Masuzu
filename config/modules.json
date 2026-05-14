@@ -1,0 +1,16 @@
+{
+  "modules": [
+    {
+      "name": "testing",
+      "enabled_by_default": true
+    },
+    {
+      "name": "security",
+      "enabled_by_default": false
+    },
+    {
+      "name": "devops",
+      "enabled_by_default": false
+    }
+  ]
+}
