@@ -2,6 +2,10 @@
 
 Masuzu là một nền tảng trợ lý AI (Agent Platform) nội bộ cực kỳ mạnh mẽ, được xây dựng dựa trên cốt lõi là **Claude (Anthropic)** và **9router**. Hệ thống này không chỉ đơn thuần là một giao diện chat, mà đóng vai trò như một **Agentic IDE** hoàn chỉnh, cho phép AI tự động phân tích, lập kế hoạch, chỉnh sửa code và quản lý tệp tin một cách độc lập thông qua cấu trúc Workspace cách ly.
 
+Link 9router : https://github.com/decolua/9router
+
+Link claude-code : https://github.com/anthropics/claude-code
+
 ---
 
 ## Các Tính Năng Cốt Lõi (Core Features)
